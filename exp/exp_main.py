@@ -55,14 +55,7 @@ class Exp_Main(Exp_Basic):
             model_optim = optim.Adam(
                 self.model.parameters(), lr=self.args.learning_rate
             )
-        model_optim = optim.Adam(self.model.parameters(), lr=self.args.learning_rate)
         return model_optim
-
-    # def _select_criterion(self):
-    #     if self.args.loss == "mse":
-    #         self.criterion = nn.MSELoss()
-    #     elif self.args.loss == "mae":
-    #         self.criterion = nn.L1Loss()
 
     def _comput_loss(self, y_pred, y_true, x, flag=None):
         x = x.to(y_true.device)
@@ -95,6 +88,7 @@ class Exp_Main(Exp_Basic):
             ).float() / (d_pred.shape[1] * d_pred.shape[2])
 
             if self.args.adaptive:
+                self.alpha.data.clamp_(0, 1)
                 loss = torch.mean(self.alpha * loss_y + (1 - self.alpha) * loss_d)
             elif self.args.no_sgn:
                 loss = torch.mean(loss_y + loss_d)
