@@ -1,8 +1,38 @@
 # TDAlign
 
-Welcome to the official repository of the TDAlign paper: Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting.
+Welcome to the official repository of the TDAlign paper: [Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting](https://arxiv.org/abs/2406.04777).
 
-TDAlign is a plug-and-play framework without introducing additional learnable parameters to the baseline. It incurs minimal computational overhead, with only linear time complexity and constant space complexity relative to the prediction length.
+
+## Introduction
+Despite significant advancements in long-term time series forecasting (LTSF) research, we identify a performance bottleneck in existing LTSF methods caused by the inadequate modeling of Temporal Dependencies within the Target (TDT). 
+
+To address this issue, we propose a novel and generic temporal modeling framework, Temporal Dependency Alignment (TDAlign), that equips existing LTSF methods with TDT learning capabilities. TDAlign is **a plug-and-play framework without introducing additional learnable parameters to the baseline**. It incurs minimal computational overhead, with only linear time complexity and constant space complexity relative to the prediction length.
+
+### Key Designs
+🌟 **Novel loss function ( $\mathcal{L}_D$ ):** aligns the change values between adjacent time steps in the predictions with those in the target, ensuring consistency with variation patterns.
+
+🌟 **Adaptive loss balancing strategy ( $\rho$ ):** seamlessly integrates the new loss function with existing LTSF methods without introducing additional learnable parameters.
+
+Regardless of the architectures and parameterizations, the vast majority of LTSF methods optimize a single conventional forecasting objective, denoted by $\mathcal{L}_Y$. With the integration of TDAlign, the overall loss function is reformulated as:
+
+$$\mathcal{L} = \rho \mathcal{L}_Y + (1-\rho) \mathcal{L}_D$$
+
+<div align="center">
+  <img src="figures/framework.png" alt="TDAlign Framework" width="700">
+</div>
+
+### Results
+<div align="center">
+  <img src="figures/statistical_results.png" alt="TDAlign Framework" width="700">
+</div>
+
+
+### Efficiency
+<div align="center">
+  <img src="figures/efficiency.png" alt="TDAlign Framework" width="400">
+</div>
+
+
 
 ## Getting Started
 
@@ -55,3 +85,6 @@ We extend our heartfelt appreciation to the following GitHub repositories for pr
 - [TimesNet: Temporal 2D-Variation Modeling for General Time Series Analysis](https://github.com/thuml/Time-Series-Library/blob/main/models/TimesNet.py)
 - [SegRNN: Segment Recurrent Neural Network for Long-Term Time Series Forecasting](https://github.com/lss-1138/SegRNN)
 - [Autoformer: Decomposition Transformers with Auto-Correlation for Long-Term Series Forecasting](https://github.com/thuml/Autoformer)
+
+## Contact
+If you have any questions about our work or code, please contact  xiongqi_111@outlook.com

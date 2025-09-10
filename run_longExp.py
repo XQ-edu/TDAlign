@@ -136,9 +136,7 @@ parser.add_argument(
     default=0,
     help="0: default 1: value embedding + temporal embedding + positional embedding 2: value embedding + temporal embedding 3: value embedding + positional embedding 4: value embedding",
 )
-parser.add_argument(
-    "--enc_in", type=int, default=7, help="encoder input size"
-)  # DLinear with --individual, use this hyperparameter as the number of channels
+parser.add_argument("--enc_in", type=int, default=7, help="encoder input size")
 parser.add_argument("--dec_in", type=int, default=7, help="decoder input size")
 parser.add_argument("--c_out", type=int, default=7, help="output size")
 parser.add_argument("--d_model", type=int, default=512, help="dimension of model")
@@ -218,6 +216,7 @@ parser.add_argument(
     help="Whether to enable channel position encoding",
 )
 
+
 # optimization
 parser.add_argument(
     "--num_workers", type=int, default=2, help="data loader num workers"
@@ -264,18 +263,6 @@ parser.add_argument(
 parser.add_argument(
     "--task", type=str, default="origin", help="task name: origin, improve"
 )
-
-# ablation setting for TDAlign
-parser.add_argument("--d", type=int, default=1, help="the order of differencing")
-parser.add_argument("--k", type=int, default=1, help="the interval of differencing")
-parser.add_argument(
-    "--adaptive",
-    action="store_true",
-    default=False,
-    help="adaptive weight for loss_y and loss_d",
-)
-parser.add_argument("--no_sgn", action="store_true", default=False, help="no loss_sign")
-parser.add_argument("--no_d", action="store_true", default=False, help="no loss_d")
 
 # other setting
 parser.add_argument(

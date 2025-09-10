@@ -39,6 +39,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.001 \
     --batch_size 256 \
     --task "improve" \
@@ -76,6 +77,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.005 \
     --batch_size 64 \
     --task "improve" \
@@ -114,6 +116,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.001 \
     --batch_size 16 \
     --task "improve" \
@@ -153,6 +156,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.001 \
     --batch_size 32 \
     --task "improve" \
@@ -191,6 +195,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.001 \
     --batch_size 32 \
     --task "improve" \
@@ -228,6 +233,7 @@ for pred_len in 96 192 336 720; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.001 \
     --batch_size 32 \
     --task "improve" \
@@ -270,6 +276,7 @@ for pred_len in 24 36; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.005 \
     --batch_size 8 \
     --task "improve" \
@@ -308,6 +315,7 @@ for pred_len in 48 60; do
     --train_epochs 100 \
     --patience 3 \
     --lradj type7 \
+    --loss mae \
     --learning_rate 0.005 \
     --batch_size 16 \
     --task "improve" \

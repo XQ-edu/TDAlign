@@ -58,51 +58,47 @@ class Exp_Main(Exp_Basic):
         return model_optim
 
     def _comput_loss(self, y_pred, y_true, x, flag=None):
+        """
+        Incorporating the last time step of $x$ is not mandatory (though it may offer benefits);
+        for computational simplicity, it can be omitted.
+        """
         x = x.to(y_true.device)
-
-        if (
-            self.args.d == 1 and self.args.k == 1
-        ):  # TDOS: 1-order differencing between y_t and y_{t+1}
-            tmp = torch.cat([x[:, -1:, :], y_true], dim=1)
-            d_true = torch.diff(tmp, n=1, dim=1)
-            tmp = torch.cat([x[:, -1:, :], y_pred], dim=1)
-            d_pred = torch.diff(tmp, n=1, dim=1)
-        elif self.args.d > 1 and self.args.k == 1:  # TDOS: d-order differencing
-            tmp = torch.cat([x[:, -self.args.d :, :], y_true], dim=1)
-            d_true = torch.diff(tmp, n=self.args.d, dim=1)
-            tmp = torch.cat([x[:, -self.args.d :, :], y_pred], dim=1)
-            d_pred = torch.diff(tmp, n=self.args.d, dim=1)
-        elif self.args.d == 1 and self.args.k > 1:  # difference between y_t and y_{t+k}
-            tmp = torch.cat([x[:, -self.args.k :, :], y_true], dim=1)
-            d_true = tmp[:, self.args.k :, :] - tmp[:, : -self.args.k, :]
-            tmp = torch.cat([x[:, -self.args.k :, :], y_pred], dim=1)
-            d_pred = tmp[:, self.args.k :, :] - tmp[:, : -self.args.k, :]
-        else:
-            raise ValueError("Invalid d and k values")
+        tmp = torch.cat([x[:, -1:, :], y_true], dim=1)
+        d_true = torch.diff(tmp, n=1, dim=1)
+        tmp = torch.cat([x[:, -1:, :], y_pred], dim=1)
+        d_pred = torch.diff(tmp, n=1, dim=1)
 
         if self.args.task == "improve":
-            loss_y = torch.mean(torch.mean(torch.abs(y_pred - y_true), dim=2), dim=1)
-            loss_d = torch.mean(torch.mean(torch.abs(d_pred - d_true), dim=2), dim=1)
-            loss_sgn = torch.sum(
-                torch.sum(torch.mul(d_pred, d_true) < 0, dim=2), dim=1
-            ).float() / (d_pred.shape[1] * d_pred.shape[2])
+            # sample level
+            loss_y_mse = torch.mean((y_pred - y_true) ** 2, dim=1)
+            loss_d_mse = torch.mean((d_pred - d_true) ** 2, dim=1)
+            loss_y_mae = torch.mean(torch.abs(y_pred - y_true), dim=1)
+            loss_d_mae = torch.mean(torch.abs(d_pred - d_true), dim=1)
+            loss_sgn = torch.sum(torch.mul(d_pred, d_true) < 0, dim=1).float() / (
+                d_pred.shape[1]
+            )
 
-            if self.args.adaptive:
-                self.alpha.data.clamp_(0, 1)
-                loss = torch.mean(self.alpha * loss_y + (1 - self.alpha) * loss_d)
-            elif self.args.no_sgn:
-                loss = torch.mean(loss_y + loss_d)
-            elif self.args.no_d:
-                loss = torch.mean(loss_y * loss_sgn)
+            # batch level
+            # loss_y_mse = torch.mean(torch.mean((y_pred - y_true) ** 2, dim=2), dim=1)
+            # loss_d_mse = torch.mean(torch.mean((d_pred - d_true) ** 2, dim=2), dim=1)
+            # loss_y_mae = torch.mean(torch.mean(torch.abs(y_pred - y_true), dim=2), dim=1)
+            # loss_d_mae = torch.mean(torch.mean(torch.abs(d_pred - d_true), dim=2), dim=1)
+            # loss_sgn = torch.sum(
+            #     torch.sum(torch.mul(d_pred, d_true) < 0, dim=2), dim=1
+            # ).float() / (d_pred.shape[1] * d_pred.shape[2])
+
+            if self.args.loss == "mse":
+                loss = torch.mean(loss_sgn * loss_y_mse + (1 - loss_sgn) * loss_d_mse)
+            elif self.args.loss == "mae":
+                loss = torch.mean(loss_sgn * loss_y_mae + (1 - loss_sgn) * loss_d_mae)
             else:
-                loss = torch.mean(loss_sgn * loss_y + (1 - loss_sgn) * loss_d)
+                raise ValueError("Loss function not defined")
 
-            loss_y_mae = torch.mean(loss_y)
-            loss_d_mae = torch.mean(loss_d)
-            loss_sgn = torch.mean(loss_sgn)
-
+            loss_y_mae = torch.mean(loss_y_mae)
+            loss_d_mae = torch.mean(loss_d_mae)
             loss_y_mse = nn.MSELoss()(y_pred, y_true)
             loss_d_mse = nn.MSELoss()(d_pred, d_true)
+            loss_sgn = torch.mean(loss_sgn)
 
         elif self.args.task == "origin":
             loss_y_mae = nn.L1Loss()(y_pred, y_true)
@@ -116,6 +112,8 @@ class Exp_Main(Exp_Basic):
                 loss = loss_y_mse
             elif self.args.loss == "mae":
                 loss = loss_y_mae
+            else:
+                raise ValueError("Loss function not defined")
 
         return loss, loss_y_mae, loss_d_mae, loss_sgn, loss_y_mse, loss_d_mse
 
@@ -581,7 +579,6 @@ class Exp_Main(Exp_Basic):
             batch_y_mark,
             input_x,
             dec_inp,
-            dec_label,
             y_pred,
             d_pred,
         )
@@ -744,7 +741,6 @@ class Exp_Main(Exp_Basic):
             batch_y_mark,
             input_x,
             dec_inp,
-            dec_label,
             y_pred,
             d_pred,
         )
