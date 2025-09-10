@@ -1,6 +1,13 @@
-# TDAlign
+# TDAlign：Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting
+[![arXiv](https://img.shields.io/badge/arXiv-2406.04777-b31b1b.svg)](https://arxiv.org/abs/2406.04777)
 
 Welcome to the official repository of the TDAlign paper: [Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting](https://arxiv.org/abs/2406.04777).
+
+
+-  📰 **News(2025, 09)**: Our paper has been accepted by *IEEE Transactions on Knowledge and Data Engineering (TKDE)*.
+-  📰 **News(2025, 12)**:  A revised version of our paper has been released, retitled as *"Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting"*. The initial codebase was also released.
+-  📰 **News(2024, 06)**: The initial arXiv preprint was released under the title *"TDT Loss Takes It All: Integrating Temporal Dependencies among Targets into Non-Autoregressive Time Series Forecasting"*.
+
 
 
 ## Introduction
@@ -24,6 +31,9 @@ $$\mathcal{L} = \rho \mathcal{L}_Y + (1-\rho) \mathcal{L}_D$$
 ### Results
 <div align="center">
   <img src="figures/statistical_results.png" alt="TDAlign Framework" width="700">
+</div>
+<div align="center">
+  <img src="figures/llm.png" alt="TDAlign Framework" width="700">
 </div>
 
 
