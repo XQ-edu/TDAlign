@@ -1,7 +1,8 @@
 # TDAlign：Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting
+[![IEEE](https://img.shields.io/badge/IEEE%20TKDE-10.1109/TKDE.2025.3609415-blue)](https://doi.org/10.1109/TKDE.2025.3609415)
 [![arXiv](https://img.shields.io/badge/arXiv-2406.04777-b31b1b.svg)](https://arxiv.org/abs/2406.04777)
 
-Welcome to the official repository of the TDAlign paper: [Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting](https://arxiv.org/abs/2406.04777).
+Welcome to the official repository of the TDAlign paper: [Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting](https://doi.org/10.1109/TKDE.2025.3609415).
 
 
 -  📰 **News(2025, 09)**: Our paper has been accepted by *IEEE Transactions on Knowledge and Data Engineering (TKDE)*.
@@ -78,12 +79,16 @@ Develop steps:
 ## Citation
 If you find this repo useful, please cite our paper.
 ```
-@article{xiong2024tdt,
-  title={Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting},
-  author={Xiong, Qi and Tang, Kai and Ma, Minbo, Zhang, Ji and Xu, Jie and Li, Tianrui},
-  journal={arXiv preprint arXiv:2406.04777},
-  year={2024}
-}
+@ARTICLE{11160655,
+  author={Xiong, Qi and Tang, Kai and Ma, Minbo and Zhang, Ji and Xu, Jie and Li, Tianrui},
+  journal={IEEE Transactions on Knowledge and Data Engineering}, 
+  title={Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-14},
+  keywords={Time series analysis;long-term forecasting;temporal dependency},
+  doi={10.1109/TKDE.2025.3609415}}
 ```
 
 ## Acknowledgement
