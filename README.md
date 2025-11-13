@@ -5,8 +5,8 @@
 Welcome to the official repository of the TDAlign paper: [Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting](https://doi.org/10.1109/TKDE.2025.3609415).
 
 
--  📰 **News(2025, 09)**: Our paper has been accepted by *IEEE Transactions on Knowledge and Data Engineering (TKDE)*.
--  📰 **News(2025, 12)**:  A revised version of our paper has been released, retitled as *"Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting"*. The initial codebase was also released.
+-  📰 **News(2025, 09)**: Our paper has been accepted by *IEEE Transactions on Knowledge and Data Engineering (TKDE)*, and a revised version has also been released on arXiv.
+-  📰 **News(2024, 12)**:  A revised version of our paper has been released, retitled as *"Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting"*. The initial codebase was also released.
 -  📰 **News(2024, 06)**: The initial arXiv preprint was released under the title *"TDT Loss Takes It All: Integrating Temporal Dependencies among Targets into Non-Autoregressive Time Series Forecasting"*.
 
 
@@ -28,6 +28,7 @@ $$\mathcal{L} = \rho \mathcal{L}_Y + (1-\rho) \mathcal{L}_D$$
 <div align="center">
   <img src="figures/framework.png" alt="TDAlign Framework" width="700">
 </div>
+
 
 ### Results
 <div align="center">
@@ -84,9 +85,9 @@ If you find this repo useful, please cite our paper.
   journal={IEEE Transactions on Knowledge and Data Engineering}, 
   title={Modeling Temporal Dependencies within the Target for Long-Term Time Series Forecasting}, 
   year={2025},
-  volume={},
-  number={},
-  pages={1-14},
+  volume={37},
+  number={12},
+  pages={7300-7314},
   keywords={Time series analysis;long-term forecasting;temporal dependency},
   doi={10.1109/TKDE.2025.3609415}}
 ```
